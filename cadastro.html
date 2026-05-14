@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Cadastro - Site da Bíblia </title>
+    <link rel="stylesheet" href="css/desafio.css">
+</head>
+<body>
+    
+    <header>
+    <div class="header-logo">
+        <img src="IMG/logo.jpeg" alt="Logo do Site">
+    </div>
+<h1> Cadastre-se </h1>
+        <p> Junte-se à nossa comunidade de estudo da Bíblia </p>
+    </header>
+
+    <div class="content">
+        <main>
+            <h1> Criar Conta </h1>
+            <p> Preencha os dados abaixo para se cadastrar e acessar conteúdos exclusivos sobre a Bíblia. </p>
+
+            <form class="register-form" action="pagina_inicial.html">
+                <label for="name">Nome Completo:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm-password">Confirmar Senha:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+
+                <button type="submit">Continuar</button>
+            </form>
+
+            <p> Já tem conta? <a href="login.html">Fazer login</a> </p>
+        </main>
+
+        <aside>
+            <h1> Benefícios do Cadastro </h1>
+            <ul>
+                <li> Acesso a estudos bíblicos exclusivos </li>
+                <li> Participação em grupos de discussão </li>
+                <li> Recebimento de versículos diários </li>
+                <li> Comunidade de apoio espiritual </li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Site da Bíblia. Todos os direitos reservados.</p>
+        <p>Contato: <a href="mailto:contato@sitebiblia.com">contato@sitebiblia.com</a></p>
+        <nav>
+            <a href="Bemvindo.html">Página Inicial</a> |
+            <a href="pagina_inicial.html">Explorar</a> |
+            <a href="Jesus.html">Sobre Jesus</a>
+        </nav>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
