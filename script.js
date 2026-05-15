@@ -184,3 +184,111 @@ function addAnimationStyles() {
 
 // Carregar animações ao inicializar a página
 addAnimationStyles();
+
+let perguntas = [];
+let indice = 0;
+let dificuldadeAtual = "";
+
+// 🔥 BANCO COM 10 PERGUNTAS POR DIFICULDADE
+const banco = {
+    facil: [
+        { q: "Quem construiu a arca?", op: ["Noé", "Moisés", "Abraão"], c: 0, v: "Gênesis 6:14" },
+        { q: "Quantos discípulos Jesus tinha?", op: ["10", "12", "7"], c: 1, v: "Lucas 6:13" },
+        { q: "Quem matou Golias?", op: ["Davi", "Saul", "Samuel"], c: 0, v: "1 Samuel 17:50" },
+        { q: "Qual mar se abriu?", op: ["Mar Vermelho", "Mediterrâneo", "Negro"], c: 0, v: "Êxodo 14:21" },
+        { q: "Quem foi vendido pelos irmãos?", op: ["José", "Moisés", "Abraão"], c: 0, v: "Gênesis 37:28" },
+        { q: "Quem virou estátua de sal?", op: ["Mulher de Ló", "Eva", "Sara"], c: 0, v: "Gênesis 19:26" },
+        { q: "Quem foi engolido por peixe?", op: ["Jonas", "Elias", "Pedro"], c: 0, v: "Jonas 1:17" },
+        { q: "Quem liderou Israel no Egito?", op: ["Moisés", "Davi", "Josué"], c: 0, v: "Êxodo 3:10" },
+        { q: "Quem construiu o templo?", op: ["Salomão", "Davi", "Saul"], c: 0, v: "1 Reis 6:1" },
+        { q: "Quem foi primeiro homem?", op: ["Adão", "Noé", "Caim"], c: 0, v: "Gênesis 2:7" }
+    ],
+
+    medio: [
+        { q: "Quem escreveu Apocalipse?", op: ["João", "Pedro", "Paulo"], c: 0, v: "Apocalipse 1:1" },
+        { q: "Quem foi jogado na cova dos leões?", op: ["Daniel", "Elias", "Isaías"], c: 0, v: "Daniel 6:16" },
+        { q: "Quem traiu Jesus?", op: ["Judas", "Pedro", "Tomé"], c: 0, v: "Mateus 26:14" },
+        { q: "Qual profeta subiu ao céu em redemoinho?", op: ["Elias", "Eliseu", "Isaías"], c: 0, v: "2 Reis 2:11" },
+        { q: "Quem foi o primeiro rei de Israel?", op: ["Saul", "Davi", "Salomão"], c: 0, v: "1 Samuel 10:1" },
+        { q: "Quantos livros tem a Bíblia?", op: ["66", "70", "72"], c: 0, v: "Estrutura bíblica" },
+        { q: "Quem construiu a arca da aliança?", op: ["Bezalel", "Moisés", "Arão"], c: 0, v: "Êxodo 37:1" },
+        { q: "Quem interpretou sonhos no Egito?", op: ["José", "Daniel", "Jacó"], c: 0, v: "Gênesis 41:15" },
+        { q: "Quem batizou Jesus?", op: ["João Batista", "Pedro", "Paulo"], c: 0, v: "Mateus 3:13" },
+        { q: "Qual era o nome original de Abraão?", op: ["Abrão", "Isaque", "Jacó"], c: 0, v: "Gênesis 17:5" }
+    ],
+
+    dificil: [
+        { q: "Quem escreveu Salmos?", op: ["Davi", "Moisés", "Salomão"], c: 0, v: "Salmos 3:1" },
+        { q: "Onde Paulo foi preso?", op: ["Roma", "Egito", "Israel"], c: 0, v: "Atos 28:16" },
+        { q: "Qual era o nome do irmão de Moisés?", op: ["Arão", "Josué", "Calebe"], c: 0, v: "Êxodo 4:14" },
+        { q: "Quem foi o primeiro mártir?", op: ["Estêvão", "Pedro", "Paulo"], c: 0, v: "Atos 7:59" },
+        { q: "Qual profeta viu vale de ossos secos?", op: ["Ezequiel", "Isaías", "Jeremias"], c: 0, v: "Ezequiel 37:1" },
+        { q: "Quem escreveu Provérbios?", op: ["Salomão", "Davi", "Moisés"], c: 0, v: "Provérbios 1:1" },
+        { q: "Quem negou Jesus 3 vezes?", op: ["Pedro", "João", "Tomé"], c: 0, v: "Lucas 22:61" },
+        { q: "Qual discípulo andou sobre água?", op: ["Pedro", "João", "Tiago"], c: 0, v: "Mateus 14:29" },
+        { q: "Quem construiu o tabernáculo?", op: ["Moisés", "Bezalel", "Arão"], c: 1, v: "Êxodo 36:1" },
+        { q: "Onde Jesus nasceu?", op: ["Belém", "Nazaré", "Jerusalém"], c: 0, v: "Lucas 2:4" }
+    ]
+};
+
+function iniciar(nivel) {
+    dificuldadeAtual = nivel;
+    perguntas = banco[nivel];
+    indice = 0;
+
+    document.getElementById("menu").style.display = "none";
+
+    mostrarPergunta();
+}
+
+function mostrarPergunta() {
+    const p = perguntas[indice];
+
+    document.getElementById("pergunta").innerHTML = p.q;
+
+    const opcoesDiv = document.getElementById("opcoes");
+    opcoesDiv.innerHTML = "";
+
+    p.op.forEach((texto, i) => {
+        const btn = document.createElement("button");
+
+        btn.innerHTML = texto;
+
+        btn.onclick = function () {
+            responder(i);
+        };
+
+        opcoesDiv.appendChild(btn);
+    });
+
+    document.getElementById("resultado").innerHTML = "";
+}
+
+function responder(escolha) {
+    const p = perguntas[indice];
+    const resultado = document.getElementById("resultado");
+
+    // ❌ ERRO OU ACERTO = NÃO REPETE
+    if (escolha === p.c) {
+        resultado.innerHTML = "Correto!";
+        resultado.style.color = "green";
+    } else {
+        resultado.innerHTML = "Errado! " + p.v;
+        resultado.style.color = "red";
+    }
+
+    // ⏭️ vai pra próxima automaticamente
+    setTimeout(() => {
+        indice++;
+
+        if (indice >= perguntas.length) {
+            document.getElementById("pergunta").innerHTML = " Quiz finalizado!";
+            document.getElementById("opcoes").innerHTML = "";
+            document.getElementById("resultado").innerHTML = "";
+            document.getElementById("menu").style.display = "block";
+            return;
+        }
+
+        mostrarPergunta();
+    }, 1500);
+}
